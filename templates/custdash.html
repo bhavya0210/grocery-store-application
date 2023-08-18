@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href = "{{ url_for('static', filename='stylesheets/custdash.css') }}">
+    <head>
+        <h1>Welcome to Grocery Store</h1>
+        <hr>
+    </head>
+
+    <body>
+    <div style="display: flex; justify-content: space-around">
+            <div><h3><a  href="/customer">logout</h3></a></div> <br><br>
+        <div class="heading"><h2>{{user.name}}'s dashboard</h2></div>
+
+        <div class="heading">
+            <form method="POST" action="/customer/{{user.user_id}}/search">
+                <img src="../../static/search.png" height="30" width="30">
+                <input type="text" name="search" width="3%">
+                <input type="submit" value="search">
+            </form>
+        </div>
+
+        <div class="heading">
+            <a href="/customer/{{user.user_id}}/cart">
+            <img src="../../static/cart.png" alt="cart" height="50" width="50" class="cartlink"><br>
+            </a>
+        </div>
+    </div>
+
+    {% if empty %}
+        <h3>Store out of stock, please visit later!!</h3>
+
+    {% else -%}
+
+        {% if search %}
+
+            <a href="/customer/dashboard/{{user.name}}">go back</a> <br><br>
+        
+            {% for item in items %}
+                <div class="card">
+                    <h4>{{item.name}}</h4>
+                    
+                    Price: {{item.price}} <br>
+                    Manufacture: {{item.manufacture}}<br>
+                    Expiry: {{item.expiry}} <br>
+                    <form method="POST" action="/customer/{{user.user_id}}/add/{{item.product_id}}/tocart">
+                        <input type="submit" value="add to cart" name="add">
+                    </form>
+                </div>
+            {% endfor %}
+            
+
+        {% else -%}
+
+            {% for item in items %}
+            <div>
+                {% if item[0] == 'empty' %}
+                <div class="cathead">{{item[1]}} </div>
+                <div class="card">
+                <center>                    
+                    No items right now <br>
+                <br>
+                </center>
+                </div>
+
+                {% else -%}
+
+                <div class="cathead">{{item[0][0]}}</div> <br>
+                    {% for row in item %}
+                    <div class="card">
+                    <center>
+                        <h4>{{row[1]}}</h4>
+                        
+                        {% if row[2] == 0 %}
+                            out of stock<br>
+                        {% elif row[2] < 3 %}
+                            only few left, buy now!<br>
+                        {% else -%}
+                            in stock<br>
+                        {% endif %}
+
+                        Price: {{row[3]}}<br>                   
+                        <br>
+
+                        Manufacture: {{row[6]}} <br><br>
+                        Expiry: {{row[7]}} <br><br>
+
+                        In Cart: {{row[5]}} <br><br>
+                        
+                        <form method="POST" action="/customer/{{user.user_id}}/add/{{row[4]}}/tocart">
+                            <input type="submit" value="add to cart" name="add">
+                        </form>
+                    </center>
+                    </div>    
+                    {% endfor %}                
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+    {% endif %}
+    <br>
+
+    
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href = "{{ url_for('static', filename='stylesheets/cart.css') }}">
+    <head>
+        <div style="display: flex; justify-content: space-around" class="top">
+            <div>
+                <a href="/customer/dashboard/{{name}}">go back</a>
+            </div>
+
+        <div><h1>
+            {{name}}'s cart
+        </h1></div>
+
+        <div>
+            <a href="/customer">logout</a>
+        </div>
+
+        </div>
+    </head>
+    {% if empty %}
+    <body>
+        cart is empty!!
+        <a href="/customer/dashboard/{{name}}">go back to browsing</a>
+    </body>
+    {% else -%}
+    <body>
+        <form method="POST" action="/customer/{{id}}/cart">
+            {% for item in items %}
+                <div>
+                    Item: {{item[0]}}<br><br>
+                    Quantity: {{item[1]}} <br><br>
+                    Total: {{item[2]}} <br><br>
+                    <a href="/customer/{{id}}/add/{{ item[3] }}/incart">add</a>
+                    <a href="/customer/{{id}}/sub/{{ item[3] }}/incart">remove</a>
+                    <br>
+                    <a href="/customer/{{id}}/del/{{ item[3] }}/incart">delete item</a>
+                    <br><br>
+                </div>
+            {% endfor %}
+
+
+            Final Amount = {{amt}} Rs <br><br>
+            <input type="submit" value="proceed to checkout" name="buy">
+        </form>
+    </body>
+    {% endif %}
+</html>

@@ -1,0 +1,33 @@
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3;
+    display: inline-block;
+    margin-right: 3%;
+    font-size: 150%;
+    margin-bottom: 3%;
+}
+
+.but{
+    font-size: 100%;
+}
+
+h1{
+    font-size: 300%;
+}
+
+h2{
+    font-size: 270%;
+}
+
+.cathead{
+    font-size: 300%;
+}
+
+.addtocat{
+    margin-bottom: 2%;
+}
+
+body{
+    background-color: #AAF0D1;
+    margin: auto;
+}

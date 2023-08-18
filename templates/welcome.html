@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href = "{{ url_for('static', filename='stylesheets/welcome.css') }}">
+    </head>
+    <body>
+        <h1>WELCOME TO GROCERY STORE</h1>
+        <br><br><br>
+        <form name="login" method="post" onsubmit="">
+            <input type="radio" name="inp" id="admin" value="admin">
+            <text>MANAGER </text>
+            <input type="radio" name="inp" id="cust" value="cust">
+            <text>USER </text>
+            <br><br>
+            <input type="submit" name="go to login">
+        </form>
+        <br><br><br>
+        <img src="../static/store.png">
+    </body>
+</html>

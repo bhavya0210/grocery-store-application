@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  title: Grocery Store
+  version: 1.0.0
+  description: >-
+    _If you're looking for the Swagger @.0/OAS 2.0 version of Petstore, then click
+  servers:  
+    - url: http://127.0.0.1:5000/
+
+  paths:
+  /api/customer:
+    description: end point to login with admin's username
+    get:
+      description: Operation to get a admin details
+
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: customer object
+                type: object
+                properties:
+                  password:
+                    type: String
+                    example: 201
+                  username:
+                    type: string
+                    example: all
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: Resource not found
+        '500':
+          description: Internal server Error
+
+  /api/customer:
+    summary: Endpoint to add user
+    post:
+      description: Operation to create a uesr
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: user object
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: all
+                password:
+                  type: string
+                  example: all
+      responses:
+        '202':
+          description: Succesfully Created
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '409':
+          description: username already exists
+        '500':
+          description: internal server eror
+
+  /api/customer/dashboard{{name}}:
+    summary: Endpoint to view dashboard
+    
+      responses:
+        '202':
+          description: Succesfully Created
+          parameters:
+            - in: path
+              name: name
+              required: true
+              schema:
+                type: string
+                example: ali
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '409':
+          description: venue already exists
+        '500':
+          description: internal server eror
+  /api/dashboard/{id}/add/{{prod}}/tocart:
+    description: end point to add to cart
+    get:
+      description: Operation to view cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: prod
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: 
+                type: object
+                properties:
+                  product_id:
+                    type: integer
+                    example: 201
+                  name:
+                    type: string
+                    example: all
+                  capacity:
+                    type: integer
+                    example: all
+                  place:
+                    type: string
+                    example: all
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: Resource not found
+        '500':
+          description: Internal server Error
+
+  /api/dashboard/{id}/add/{{prod}}/tocart:
+    description: end point to add to cart
+    get:
+      description: Operation to view cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: prod
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: 
+                type: object
+                properties:
+                  product_id:
+                    type: integer
+                    example: 201
+                  name:
+                    type: string
+                    example: all
+                  capacity:
+                    type: integer
+                    example: all
+                  place:
+                    type: string
+                    example: all
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: Resource not found
+        '500':
+          description: Internal server Error

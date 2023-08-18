@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href = "{{ url_for('static', filename='stylesheets/mandash.css') }}">
+    <head>
+        <h1>welcome {{ username }}</h1>
+        <hr>
+    </head>
+
+    <body>
+    
+    <div style="display: flex; justify-content: space-around" class="top">
+        <div>
+            <h3><a  href="/admin">logout</a>
+            <a href="/admin/summary">summary</a></h3>
+        </div> <br><br>
+
+        <h2>{{ username }}'s Dashboard</h2>
+        
+        <div class="heading">
+            <form method="POST" action="/admin/search">
+                <img src="../../static/search.png" height="30" width="30">
+                <input type="text" name="search" width="3%">
+                <input type="submit" value="search">
+            </form>
+        </div>
+
+    </div>
+    <form method="POST" action="/admin/changes">
+
+        {% if empty %}
+            <h3>inventory empty!! add new items</h3>
+
+        {% else -%}
+
+        {% if search %}
+
+        <a href="/admin/changes">go back</a> <br><br>
+        
+        {% for item in items %}
+            <div class="card">
+                <h4>{{item.name}}</h4>
+                Category: {{item.category}}<br>
+                Price: {{item.price}} <br>
+                Manufacture: {{item.manufacture}} <br>
+                Expiry: {{item.expiry}} <br>
+                
+                <button type="submit" value="update" name="edit" class="but">
+                    <a href="/admin/update/{{item.product_id}}">
+                    update
+                    </a>
+                </button>
+                <button type="submit" value="delete" name="edit" class="but">
+                    <a href="/admin/delete/{{item.product_id}}">
+                        delete
+                    </a>
+                </button> 
+            </div>
+        {% endfor %}
+
+        {% else -%}
+
+            {% for item in items %}
+            <div>
+                {% if item[0] == 'empty' %}
+                <div class="cathead">{{item[1]}} </div>
+                <button><a href="/admin/deletecat/{{item[1]}}">delete</a></button>
+                <button><a href="/admin/updatecat/{{item[1]}}">update</a></button>
+                <div class="card">
+                <center>                    
+                    {{item[2]}} <br>
+                    <a href="/admin/addtocat/{{item[1]}}">
+                        <img src="../static/plus.jpg" height="70" width="70">
+                    </a>
+                <br>
+                </center>
+                </div>
+
+                {% else -%}
+                <div class="cathead">{{item[0][0]}}</div> <br>
+                <button><a href="/admin/deletecat/{{item[0][0]}}">delete</a></button>
+                <button><a href="/admin/updatecat/{{item[0][0]}}">update</a></button>
+                <br>
+                <br>
+                    {% for row in item %}
+                    
+                    <div class="card">
+                    <center>
+                        <h4>{{row[1]}}</h4>
+                        Quantity: {{row[2]}}<br>
+                        Price: {{row[3]}}<br> 
+                        Manufacture: {{row[5]}}<br>
+                        Expiry: {{row[6]}}                  
+                        <br>
+        
+                        <button type="submit" value="update" name="edit" class="but">
+                            <a href="/admin/update/{{row[4]}}">
+                            update
+                            </a>
+                        </button>
+                        <button type="submit" value="delete" name="edit" class="but">
+                            <a href="/admin/delete/{{row[4]}}">
+                                delete
+                            </a>
+                        </button> 
+                   </center>
+                    </div>    
+                    {% endfor %}  
+                    <a href="/admin/addtocat/{{item[0][0]}}"><img src="../static/plus.jpg" height="70" width="70" class="addtocat">
+                    </a>                 
+                {% endif %}
+            </div>
+            {% endfor %}
+    
+        {% endif %}
+        {% endif %}
+        <br>
+        
+        <a href="/admin/create-category">
+        <img src="../static/plus.jpg" height="100" width="100">
+        </a>
+
+    </form>
+    
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>{{ username }}'s Dashboard</h1>
+        <hr>
+    </head>
+
+    <body>
+        {% if type=='addcat' %}
+            <form action="/admin/create-category" method="POST">
+                category: <input type="text" name="catname", value="null"> 
+                <input type="submit" name="save" value="save"> 
+            </form> 
+
+        {% elif type=='update' %}
+        <form action="/admin/update/{{prod.product_id}}" method="POST">
+            category: {{prod.category}} <br> 
+            name: <input type="text" name="name" placeholder="{{prod.name}}" value="{{prod.name}}"> <br>
+            price: <input type="text" name="price" placeholder="{{prod.price}}" value="{{prod.price}}"> <br>
+            quantity: <input type="text" name="quantity" placeholder="{{prod.quantity}}" value="{{prod.quantity}}"> <br>
+            description: <input type="text" name="description" placeholder="{{prod.description}}" value="{{prod.description}}"> <br>
+            manufacturing date: <input type="text" name="manufacture" placeholder="{{prod.manufacture}}" value="{{prod.manufacture}}"> <br>
+            expiry date: <input type="text" name="expiry" placeholder="{{prod.expiry}}" value="{{prod.expiry}}"> <br>
+            <input type="submit" name="save" value="save"> 
+        </form> 
+
+        {% elif type=='tocat' %}
+        <form action="/admin/addtocat/{{cat}}" method="POST">
+            <p>product name: <input type="text" name="name"></p> <br>
+            <p>price: <input type="text" name="price"></p> <br>
+            <p>quantity: <input type="text" name="quantity"> </p> <br>
+            <p>manufacture: <input type="text" name="manufacture"> </p> <br>
+            <p>expiry: <input type="text" name="expiry"> </p> <br>
+            <input type="submit" name="save" value="add"> 
+        </form> 
+
+        {% else -%}
+        <form action="/admin/updatecat/{{details.name}}" method="POST">
+            name: <input type="text" name="name" placeholder="{{details.name}}" value="{{details.name}}"> <br>
+            <input type="submit" name="save" value="save"> 
+        </form> 
+        
+        {% endif %}
+    </body>
+</html>
+
+
